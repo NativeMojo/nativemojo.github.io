@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NATIVE MOJO</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            html {
+                position: relative;
+                height: 100%;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background: #0b0c10;
+                color: #ffffff;
+                font-family: "Roboto", sans-serif;
+                overflow: hidden;
+                position: relative;
+            }
+
+            #background {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 0;
+                opacity: 0.1;
+                background: url("bg_gd.webp") no-repeat center center / cover;
+                transition: opacity 3s ease;
+            }
+
+            .background-about {
+                background: url("nm_logo_bone.svg") no-repeat center center / cover;
+                opacity: 0.3 !important;
+            }
+
+            .background-apparel {
+                background: url("apparel.png") no-repeat center center / cover !important;
+            }
+
+            .background-labs {
+                background: url("bg3.png") no-repeat center center / cover;
+                opacity: 0.3 !important;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                position: relative;
+                z-index: 1;
+                text-align: center;
+            }
+
+            .logo-img {
+                height: 80px;
+            }
+
+            .logo-text {
+                font-size: 4rem;
+                letter-spacing: 0.3rem;
+                margin-top: 15px;
+                animation: pulse 4s ease-in-out infinite;
+            }
+
+            .tagline {
+                margin-top: 1rem;
+                font-size: 1.2rem;
+                opacity: 0.7;
+            }
+
+            .nav-links {
+                margin-top: 3rem;
+                display: flex;
+                gap: 2rem;
+                font-size: 0.9rem;
+                opacity: 0.6;
+                transition: opacity 0.3s;
+            }
+
+            .nav-links a {
+                color: #ffffff;
+                text-decoration: none;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 0%;
+                height: 1px;
+                background: #ffffff;
+                transition: width 0.3s ease;
+            }
+
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .nav-links a:hover {
+                opacity: 1;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 0.9;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1.03);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div id="background"></div>
+        <div class="container">
+            <div><img class="logo-img" src="mojo_bone.svg" alt="" /></div>
+            <div class="logo-text">Got Mojo?</div>
+            <div class="nav-links">
+                <a id="about" href="#">About</a>
+                <a id="apparel" href="#">Apparel</a>
+                <a id="labs" href="#">Labs</a>
+            </div>
+        </div>
+
+        <script>
+            const aboutLink = document.getElementById("about");
+            const apparelLink = document.getElementById("apparel");
+            const labsLink = document.getElementById("labs");
+            const background = document.getElementById("background");
+
+            aboutLink.addEventListener("mouseover", () => {
+                background.classList.add("background-about");
+            });
+
+            aboutLink.addEventListener("mouseout", () => {
+                background.classList.remove("background-about");
+            });
+
+            apparelLink.addEventListener("mouseover", () => {
+                background.classList.add("background-apparel");
+            });
+
+            apparelLink.addEventListener("mouseout", () => {
+                background.classList.remove("background-apparel");
+            });
+
+            labsLink.addEventListener("mouseover", () => {
+                background.classList.add("background-labs");
+            });
+
+            labsLink.addEventListener("mouseout", () => {
+                background.classList.remove("background-labs");
+            });
+        </script>
+    </body>
+</html>
