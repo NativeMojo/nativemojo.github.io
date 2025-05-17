@@ -19,7 +19,6 @@
                 padding: 0;
                 height: 100%;
                 background: #0b0c10;
-                color: #ffffff;
                 font-family: "Roboto", sans-serif;
                 overflow: hidden;
                 position: relative;
@@ -61,6 +60,7 @@
                 position: relative;
                 z-index: 1;
                 text-align: center;
+                color: #ffffff;
             }
 
             .logo-img {
@@ -72,12 +72,14 @@
                 letter-spacing: 0.3rem;
                 margin-top: 15px;
                 animation: pulse 4s ease-in-out infinite;
+                color: #ffffff;
             }
 
             .tagline {
                 margin-top: 1rem;
                 font-size: 1.2rem;
                 opacity: 0.7;
+                color: #ffffff;
             }
 
             .nav-links {
@@ -125,6 +127,69 @@
                     transform: scale(1.03);
                 }
             }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+                opacity: 0.3;
+                color: #ffffff;
+            }
+
+            /* Custom modal styles */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(0, 0, 0, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+                color: #fff;
+                width: 80%;
+                max-width: 500px;
+                z-index: 1001;
+                text-align: center;
+            }
+
+            #modalTitle {
+                text-align: center;
+                color: #444444;
+            }
+
+            .modal-header {
+                padding: 15px;
+            }
+
+            .modal-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+            }
+
+            .modal-header h5,
+            .modal-footer button {
+                margin: 0;
+            }
+
+            .modal-footer {
+                margin-top: 20px;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 1000;
+                display: none;
+            }
         </style>
     </head>
     <body>
@@ -133,40 +198,129 @@
             <div><img class="logo-img" src="mojo_bone.svg" alt="" /></div>
             <div class="logo-text">Got Mojo?</div>
             <div class="nav-links">
-                <a id="about" href="#">About</a>
-                <a id="apparel" href="#">Apparel</a>
-                <a id="labs" href="#">Labs</a>
+                <a id="about" href="#" onclick="openAbout()">About</a>
+                <a id="apparel" href="#" onclick="openModal('apparel')">Apparel</a>
+                <a id="labs" href="#" onclick="openModal('labs')">Labs</a>
             </div>
         </div>
 
+        <!-- Modal Template -->
+        <div id="modalTemplate" class="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+            </div>
+            <div id="modalBody" class="modal-body"></div>
+            <div class="modal-footer">&nbsp;</div>
+        </div>
+        <div class="overlay" onclick="closeModal()"></div>
+        <!-- About Modal Content -->
+        <template id="aboutContent1">
+            <div>
+                <h2>Lacking Mojo?</h2>
+                <h4>That’s a bummer. Let’s fix that — get in touch today.</h4>
+                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
+                    >Contact Us</a
+                >
+            </div>
+        </template>
+
+        <template id="aboutContent2">
+            <div>
+                <h2>Out of Mojo Juice?</h2>
+                <h4>Happens to the best of us. We’re here to recharge you — drop us a line.</h4>
+                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
+                    >Contact Us</a
+                >
+            </div>
+        </template>
+
+        <template id="aboutContent3">
+            <div>
+                <h2>Your Mojo’s MIA?</h2>
+                <h4>Don’t panic. Native Mojo is on it. Reach out and let’s get you sorted.</h4>
+                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
+                    >Contact Us</a
+                >
+            </div>
+        </template>
+
+        <template id="aboutContent4">
+            <div>
+                <h2>Need a little spark?</h2>
+                <h4>We specialize in Mojo delivery. Send us a note and let’s talk.</h4>
+                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
+                    >Contact Us</a
+                >
+            </div>
+        </template>
+
+        <template id="aboutContent5">
+            <div>
+                <h2>Mojo levels critically low.</h2>
+                <h4>Engage support. Hit us up and we’ll restore balance to your universe.</h4>
+                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
+                    >Contact Us</a
+                >
+            </div>
+        </template>
+
+        <!-- Apparel Modal Content -->
+        <template id="apparelContent">
+            <h2>Summoning stylish threads…</h2>
+        </template>
+
+        <!-- Labs Modal Content -->
+        <template id="labsContent">
+            <h2>ACCESS DENIED</h2>
+            <h4>If you want to see the MOJO, get in touch!</h4>
+        </template>
+
+        <footer>&copy; 2025 Native Mojo LLC</footer>
+
         <script>
-            const aboutLink = document.getElementById("about");
-            const apparelLink = document.getElementById("apparel");
-            const labsLink = document.getElementById("labs");
-            const background = document.getElementById("background");
+            function openAbout() {
+                const randomChoice = Math.floor(Math.random() * 5) + 1;
+                openModal("about", `aboutContent${randomChoice}`);
+            }
 
-            aboutLink.addEventListener("mouseover", () => {
-                background.classList.add("background-about");
-            });
+            function openModal(modalId, templateId) {
+                if (!templateId) {
+                    templateId = `${modalId}Content`;
+                }
+                const template = document.getElementById(templateId);
+                if (template) {
+                    const content = template.content.cloneNode(true);
+                    document.getElementById("modalTitle").innerText =
+                        modalId.charAt(0).toUpperCase() + modalId.slice(1);
+                    document.getElementById("modalBody").innerHTML = "";
+                    document.getElementById("modalBody").appendChild(content);
+                    document.querySelector(".modal").style.display = "block";
+                    document.querySelector(".overlay").style.display = "block";
+                } else {
+                    console.error(`No template found with id ${templateId}`);
+                }
+            }
 
-            aboutLink.addEventListener("mouseout", () => {
-                background.classList.remove("background-about");
-            });
+            function closeModal() {
+                document.querySelector(".modal").style.display = "none";
+                document.querySelector(".overlay").style.display = "none";
+                document.getElementById("background").className = "";
+            }
 
-            apparelLink.addEventListener("mouseover", () => {
-                background.classList.add("background-apparel");
-            });
+            function showEmail(event) {
+                event.preventDefault();
+                const email = "ojomtog".split("").reverse().join("") + "@nativemojo.com";
+                window.location.href = `mailto:${email}`;
+            }
 
-            apparelLink.addEventListener("mouseout", () => {
-                background.classList.remove("background-apparel");
-            });
+            document.querySelectorAll(".nav-links a").forEach((link) => {
+                link.addEventListener("mouseover", () => {
+                    document.getElementById("background").classList.add(`background-${link.id}`);
+                });
 
-            labsLink.addEventListener("mouseover", () => {
-                background.classList.add("background-labs");
-            });
-
-            labsLink.addEventListener("mouseout", () => {
-                background.classList.remove("background-labs");
+                link.addEventListener("mouseout", () => {
+                    document.getElementById("background").classList.remove(`background-${link.id}`);
+                });
             });
         </script>
     </body>
