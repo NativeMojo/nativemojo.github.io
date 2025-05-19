@@ -4,6 +4,12 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>NATIVE MOJO</title>
+        <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+        <link rel="shortcut icon" href="/favicons/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicons/site.webmanifest" />
+
         <link
             href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
             rel="stylesheet"
@@ -33,21 +39,21 @@
                 height: 100vh;
                 z-index: 0;
                 opacity: 0.1;
-                background: url("bg_gd.webp") no-repeat center center / cover;
+                background: url("/bgs/bg_gd.webp") no-repeat center center / cover;
                 transition: opacity 3s ease;
             }
 
             .background-about {
-                background: url("nm_logo_bone.svg") no-repeat center center / cover;
+                background: url("/bgs/nm_logo_bone.svg") no-repeat center center / cover;
                 opacity: 0.3 !important;
             }
 
             .background-apparel {
-                background: url("apparel.png") no-repeat center center / cover !important;
+                background: url("/bgs/apparel.png") no-repeat center center / cover !important;
             }
 
             .background-labs {
-                background: url("bg3.png") no-repeat center center / cover;
+                background: url("/bgs/bg3.png") no-repeat center center / cover;
                 opacity: 0.3 !important;
             }
 
@@ -200,11 +206,11 @@
     <body>
         <div id="background"></div>
         <div class="container">
-            <div><img id="logo" class="logo-img" src="mojo_bone.svg" alt="" /></div>
+            <div><img id="logo" class="logo-img" src="/imgs/mojo_bone.svg" alt="" /></div>
             <div class="logo-text">Got Mojo?</div>
             <div class="nav-links">
                 <a id="about" href="#" onclick="openAbout()">About</a>
-                <a id="apparel" href="#" onclick="openModal('apparel')">Apparel</a>
+                <a id="apparel" href="/apparel.html">Apparel</a>
                 <a id="labs" href="#" onclick="openModal('labs')">Labs</a>
             </div>
         </div>
@@ -310,7 +316,7 @@
             const logoElement = document.getElementById("logo");
             logoElement.addEventListener("click", () => {
                 currentLogoIndex = (currentLogoIndex + 1) % logos.length;
-                logoElement.src = logos[currentLogoIndex];
+                logoElement.src = "/imgs/" + logos[currentLogoIndex];
             });
 
             function openAbout() {
