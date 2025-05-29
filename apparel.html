@@ -16,6 +16,37 @@
                 background: #f5f5f5;
             }
 
+            h1 {
+                margin-top: 100px;
+                text-align: center;
+            }
+
+            .nav {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 60px;
+                background: white;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 20px;
+                z-index: 100;
+            }
+
+            .nav .logo {
+                height: 40px;
+                cursor: pointer;
+            }
+
+            .nav .home-link {
+                text-decoration: none;
+                color: #333;
+                font-weight: 500;
+            }
+
             .grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -68,12 +99,28 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
             }
+
+            footer {
+                text-align: center;
+                padding: 20px;
+                color: #666;
+                font-size: 14px;
+            }
         </style>
     </head>
     <body>
+        <nav class="nav">
+            <a href="/">
+                <img src="/imgs/logo_dark_1line.png" alt="Company Logo" class="logo" />
+            </a>
+            <a href="/" class="home-link">Home</a>
+        </nav>
         <h1>Apparel Designs</h1>
         <div class="grid" id="imageGrid"></div>
         <div class="modal" id="modal"></div>
+        <footer>
+            <p>&copy; 2025 Native Mojo LLC. All rights reserved.</p>
+        </footer>
 
         <script>
             async function loadImages() {
