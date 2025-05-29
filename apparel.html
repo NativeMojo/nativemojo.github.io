@@ -3,49 +3,48 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Apparel Grid</title>
+        <title>Image Gallery</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
+            rel="stylesheet"
+        />
         <style>
             body {
-                background-color: #1a1a1a;
-                color: #ffffff;
-                font-family: Arial, sans-serif;
                 margin: 0;
-                padding: 0;
+                padding: 20px;
+                font-family: "Roboto", sans-serif;
+                background: #f5f5f5;
             }
 
-            .apparel-grid {
+            .grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 16px;
-                padding: 16px;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 20px;
+                padding: 20px;
             }
 
-            .apparel-item {
-                background-color: #333333;
-                padding: 16px;
+            .card {
+                background: white;
                 border-radius: 8px;
-                text-align: center;
-            }
-
-            .apparel-item img {
-                max-width: 100%;
-                border-radius: 8px;
-                cursor: pointer;
+                overflow: hidden;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                 transition: transform 0.2s;
+                cursor: pointer;
             }
 
-            .apparel-item img:hover {
-                transform: scale(1.05);
+            .card:hover {
+                transform: translateY(-4px);
             }
 
-            .apparel-item h3 {
-                margin-top: 8px;
-                font-size: 1.2em;
+            .card img {
+                width: 100%;
+                height: 200px;
+                object-fit: contain;
             }
 
-            .apparel-item p {
-                margin: 0;
-                font-size: 0.9em;
+            .card .description {
+                padding: 16px;
+                color: #333;
             }
 
             .modal {
@@ -55,238 +54,67 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-color: rgba(0, 0, 0, 0.8);
-                justify-content: center;
-                align-items: center;
+                background: rgba(255, 255, 255, 0.95);
                 z-index: 1000;
-            }
-
-            .modal-content {
-                max-width: 90%;
-                max-height: 90%;
-            }
-
-            .close-btn {
-                position: absolute;
-                top: 20px;
-                right: 20px;
-                color: #ffffff;
-                font-size: 2em;
                 cursor: pointer;
+            }
+
+            .modal img {
+                max-width: 90%;
+                max-height: 90vh;
+                margin: auto;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
         </style>
     </head>
     <body>
-        <div style="text-align: center">
-            <h1>NATIVE MOJO - APPAREL</h1>
-            <h3>ONLINE ORDERING COMING SOON...</h3>
-        </div>
-
-        <div class="apparel-grid">
-            <div class="apparel-item">
-                <img src="apparel/hats/nm.png" alt="Apparel Item 1" onclick="openModal(this.src)" />
-                <h3>Dark Hat - Logo</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/hats/2t_logo.png"
-                    alt="Apparel Item 1"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Dark Hat - 2t Logo</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/hats/2t_text_1l.png"
-                    alt="Apparel Item 1"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Dark Hat - 2t Logo</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/hats/2t_logo_text.png"
-                    alt="Apparel Item 1"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Dark Hat - 2t Logo Text</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/hats/funk_nm.png"
-                    alt="Apparel Item 1"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Dark Hat - Funky Logo</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/hats/funky_side.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Dark Hat - Side Logo</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/hats/nm_plant.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Dark Hat - Plant Logo</h3>
-            </div>
-
-            <!-- Additional items can be added here -->
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/simple_front_only.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Front Logo</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/simple_back.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Back Logo</h3>
-            </div>
-
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/back_plant_logo.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Growth</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/ideas_grow.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Clean</h3>
-            </div>
-
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/panda.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - 100% Organic Panda</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/viking.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - 100% Organic Viking</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/monkey.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - 100% Organic Monkey</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/coconut.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - 100% Organic Coconut</h3>
-            </div>
-
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/white_bulb_cali.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Californa</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/white_funk_got_mojo.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Got Mojo - Bulb</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/white_bulb.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Mojo Bulb</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/white_plant.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Mojo Plant</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/gray_nm.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Mojo Plant</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/blue_surf.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Mojo Plant</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/blue_bulb.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Premium White T-Shirt - Mojo Plant</h3>
-            </div>
-            <div class="apparel-item">
-                <img
-                    src="apparel/shirts/hoodie_dark.png"
-                    alt="Apparel Item 2"
-                    onclick="openModal(this.src)"
-                />
-                <h3>Dark Hoodie - NM Logo</h3>
-            </div>
-        </div>
-
-        <div id="imageModal" class="modal" onclick="closeModal()">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
-            <img class="modal-content" id="modalImage" src="" alt="Modal Image" />
-        </div>
+        <h1>Apparel Designs</h1>
+        <div class="grid" id="imageGrid"></div>
+        <div class="modal" id="modal"></div>
 
         <script>
-            function openModal(src) {
-                var modal = document.getElementById("imageModal");
-                var modalImg = document.getElementById("modalImage");
-                modal.style.display = "flex";
-                modalImg.src = src;
+            async function loadImages() {
+                try {
+                    const response = await fetch("apparel.json");
+                    const data = await response.json();
+
+                    const grid = document.getElementById("imageGrid");
+                    const modal = document.getElementById("modal");
+
+                    data.forEach((item) => {
+                        const card = document.createElement("div");
+                        card.className = "card";
+
+                        const img = document.createElement("img");
+                        img.src = item.url;
+                        img.alt = item.description;
+
+                        const desc = document.createElement("div");
+                        desc.className = "description";
+                        desc.textContent = item.description;
+
+                        card.appendChild(img);
+                        card.appendChild(desc);
+                        grid.appendChild(card);
+
+                        card.addEventListener("click", () => {
+                            modal.innerHTML = `<img src="${item.url}" alt="${item.description}">`;
+                            modal.style.display = "block";
+                        });
+                    });
+
+                    modal.addEventListener("click", () => {
+                        modal.style.display = "none";
+                    });
+                } catch (error) {
+                    console.error("Error loading images:", error);
+                }
             }
 
-            function closeModal() {
-                var modal = document.getElementById("imageModal");
-                modal.style.display = "none";
-            }
+            loadImages();
         </script>
     </body>
 </html>

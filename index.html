@@ -69,16 +69,17 @@
                 color: #ffffff;
                 user-select: none;
                 -webkit-user-select: none;
+                padding: 20px;
             }
 
             .logo-img {
-                max-width: 160px;
+                max-width: 100%;
                 max-height: 240px;
                 cursor: pointer;
             }
 
             .logo-text {
-                font-size: 4rem;
+                font-size: 2rem;
                 letter-spacing: 0.3rem;
                 margin-top: 30px;
                 animation: pulse 4s ease-in-out infinite;
@@ -156,10 +157,10 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                background-color: rgba(0, 0, 0, 0.8);
+                background-color: rgba(255, 255, 255, 0.8);
                 padding: 20px;
                 border-radius: 10px;
-                color: #fff;
+                color: #000000;
                 width: 80%;
                 max-width: 500px;
                 z-index: 1001;
@@ -201,77 +202,51 @@
                 z-index: 1000;
                 display: none;
             }
+
+            #modalBody {
+                line-height: 1.4rem;
+                letter-spacing: 0.14rem;
+            }
         </style>
     </head>
     <body>
         <div id="background"></div>
         <div class="container">
-            <div><img id="logo" class="logo-img" src="/imgs/nm_2tone_light.png" alt="" /></div>
-            <div class="logo-text">Got Mojo?</div>
+            <div style="max-width: 600px">
+                <img id="logo" class="logo-img" src="/imgs/nm_2tone_1line_light.png" alt="" />
+            </div>
+            <div class="logo-text">Mojo Incubator</div>
             <div class="nav-links">
-                <a id="about" href="#" onclick="openAbout()">About</a>
+                <a id="about" href="#" onclick="openAbout()">Mission</a>
                 <a id="apparel" href="/apparel.html">Apparel</a>
-                <a id="labs" href="#" onclick="openModal('labs')">Labs</a>
+                <a id="labs" href="#" onclick="openLabs()">Labs</a>
             </div>
         </div>
 
         <!-- Modal Template -->
         <div id="modalTemplate" class="modal">
-            <div class="modal-header">
-                <h3 id="modalTitle"></h3>
-            </div>
             <div id="modalBody" class="modal-body"></div>
-            <div class="modal-footer">&nbsp;</div>
         </div>
         <div class="overlay" onclick="closeModal()"></div>
         <!-- About Modal Content -->
-        <template id="aboutContent1">
-            <div>
-                <h2>Lacking Mojo?</h2>
-                <h4>That’s a bummer. Let’s fix that — get in touch today.</h4>
-                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
-                    >Contact Us</a
-                >
-            </div>
-        </template>
 
-        <template id="aboutContent2">
+        <template id="aboutContent">
             <div>
-                <h2>Out of Mojo Juice?</h2>
-                <h4>Happens to the best of us. We’re here to recharge you — drop us a line.</h4>
-                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
-                    >Contact Us</a
-                >
-            </div>
-        </template>
-
-        <template id="aboutContent3">
-            <div>
-                <h2>Your Mojo’s MIA?</h2>
-                <h4>Don’t panic. Native Mojo is on it. Reach out and let’s get you sorted.</h4>
-                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
-                    >Contact Us</a
-                >
-            </div>
-        </template>
-
-        <template id="aboutContent4">
-            <div>
-                <h2>Need a little spark?</h2>
-                <h4>We specialize in Mojo delivery. Send us a note and let’s talk.</h4>
-                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
-                    >Contact Us</a
-                >
-            </div>
-        </template>
-
-        <template id="aboutContent5">
-            <div>
-                <h2>Mojo levels critically low.</h2>
-                <h4>Engage support. Hit us up and we’ll restore balance to your universe.</h4>
-                <a href="#" onclick="showEmail(event)" style="color: skyblue; font-size: larger"
-                    >Contact Us</a
-                >
+                <h2>Mission</h2>
+                <p>
+                    Bold new ventures start with the right foundation — powerful technology, cloud
+                    infrastructure, proven business systems, legal support, industry expertise,
+                    early funding, and strategic equity participation.
+                </p>
+                <p>
+                    We bring all of this together to give founders the tools, capital, and
+                    confidence they need to move fast, think big, and build what’s next.
+                </p>
+                <p>
+                    <a href="#" onclick="showEmail(event)" style="color: #009bdb; font-size: larger"
+                        >Contact Us</a
+                    >
+                </p>
             </div>
         </template>
 
@@ -290,6 +265,7 @@
 
         <script>
             const logos = [
+                "nm_2tone_1line_light.png",
                 "nm_2tone_light.png",
                 "nm_2tone_light_native_mojo.png",
                 "nm_2tone_v2.png",
@@ -325,8 +301,17 @@
             });
 
             function openAbout() {
-                const randomChoice = Math.floor(Math.random() * 5) + 1;
-                openModal("about", `aboutContent${randomChoice}`);
+                // const randomChoice = Math.floor(Math.random() * 5) + 1;
+                // openModal("about", `aboutContent${randomChoice}`);
+                openModal("about", `aboutContent`);
+            }
+
+            function openLabs() {
+                // Encoded lab URL
+                const encodedUrl = "aHR0cHM6Ly9naXRodWIuY29tL05hdGl2ZU1vam8=";
+                const decodedUrl = atob(encodedUrl);
+                window.open(decodedUrl, "_blank");
+                // openModal("labs", `labsContent`);
             }
 
             function openModal(modalId, templateId) {
@@ -336,8 +321,8 @@
                 const template = document.getElementById(templateId);
                 if (template) {
                     const content = template.content.cloneNode(true);
-                    document.getElementById("modalTitle").innerText =
-                        modalId.charAt(0).toUpperCase() + modalId.slice(1);
+                    // document.getElementById("modalTitle").innerText =
+                    //     modalId.charAt(0).toUpperCase() + modalId.slice(1);
                     document.getElementById("modalBody").innerHTML = "";
                     document.getElementById("modalBody").appendChild(content);
                     document.querySelector(".modal").style.display = "block";
