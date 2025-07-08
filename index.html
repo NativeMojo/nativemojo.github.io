@@ -3,356 +3,782 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>NATIVE MOJO</title>
-        <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
-        <link rel="shortcut icon" href="/favicons/favicon.ico" />
+        <title>Native Mojo - Real Tech. Serious Scale.</title>
+        <meta
+            name="description"
+            content="Native Mojo - Powering $200M+ in secure transactions every month across payments, access, and infrastructure."
+        />
+
+        <!-- Favicons -->
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png" />
+        <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
         <link rel="manifest" href="/favicons/site.webmanifest" />
 
+        <!-- Bootstrap 5 CSS -->
         <link
-            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
             rel="stylesheet"
         />
+
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <!-- Font Awesome for icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
+
         <style>
-            html {
-                position: relative;
-                height: 100%;
+            :root {
+                --primary-bg: #0a0e1a;
+                --secondary-bg: #1a1f2e;
+                --accent-blue: #00d4ff;
+                --text-primary: #ffffff;
+                --text-secondary: #a0a6b8;
+                --text-muted: #6c7293;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
             }
 
             body {
-                margin: 0;
-                padding: 0;
-                height: 100%;
-                background: #0b0c10;
-                font-family: "Roboto", sans-serif;
+                font-family: "Inter", sans-serif;
+                background-color: var(--primary-bg);
+                color: var(--text-primary);
+                line-height: 1.6;
+                overflow-x: hidden;
+            }
+
+            /* Custom scrollbar */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: var(--primary-bg);
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: var(--accent-blue);
+                border-radius: 4px;
+            }
+
+            /* Navigation */
+            .navbar {
+                background: rgba(10, 14, 26, 0.95);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+                transition: all 0.3s ease;
+            }
+
+            .navbar.scrolled {
+                background: rgba(10, 14, 26, 0.98);
+                box-shadow: 0 2px 20px rgba(0, 212, 255, 0.1);
+            }
+
+            .navbar-brand img {
+                height: 40px;
+                width: auto;
+            }
+
+            .navbar-nav .nav-link {
+                color: var(--text-secondary);
+                font-weight: 500;
+                margin: 0 15px;
+                transition: color 0.3s ease;
+            }
+
+            .navbar-nav .nav-link:hover {
+                color: var(--accent-blue);
+            }
+
+            /* Hero Section */
+            .hero {
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary-bg) 100%);
+                position: relative;
                 overflow: hidden;
-                position: relative;
             }
 
-            #background {
+            .hero::before {
                 content: "";
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 100vw;
-                height: 100vh;
-                z-index: 0;
-                opacity: 0.1;
-                background: url("/bgs/bg_gd.webp") no-repeat center center / cover;
-                transition: opacity 3s ease;
+                right: 0;
+                bottom: 0;
+                background: radial-gradient(
+                    circle at 20% 80%,
+                    rgba(0, 212, 255, 0.1) 0%,
+                    transparent 50%
+                );
+                pointer-events: none;
             }
 
-            .background-about {
-                background: url("/bgs/nm_logo_bone.svg") no-repeat center center / cover;
-                opacity: 0.3 !important;
-            }
-
-            .background-apparel {
-                background: url("/bgs/apparel.png") no-repeat center center / cover !important;
-            }
-
-            .background-labs {
-                background: url("/bgs/bg3.png") no-repeat center center / cover;
-                opacity: 0.3 !important;
-            }
-
-            .container {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
+            .hero-content {
                 position: relative;
-                z-index: 1;
-                text-align: center;
-                color: #ffffff;
-                user-select: none;
-                -webkit-user-select: none;
-                padding: 20px;
+                z-index: 2;
             }
 
-            .logo-img {
-                max-width: 100%;
-                max-height: 240px;
-                cursor: pointer;
+            .hero h1 {
+                font-size: 4rem;
+                font-weight: 700;
+                margin-bottom: 1.5rem;
+                background: linear-gradient(
+                    135deg,
+                    var(--text-primary) 0%,
+                    var(--accent-blue) 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
             }
 
-            .logo-text {
-                font-size: 2rem;
-                letter-spacing: 0.3rem;
-                margin-top: 30px;
-                animation: pulse 4s ease-in-out infinite;
-                color: #ffffff;
-                user-select: none;
+            .hero p {
+                font-size: 1.3rem;
+                color: var(--text-secondary);
+                margin-bottom: 2rem;
+                max-width: 600px;
             }
 
-            .tagline {
-                margin-top: 1rem;
-                font-size: 1.2rem;
-                opacity: 0.7;
-                color: #ffffff;
-            }
-
-            .nav-links {
-                margin-top: 3rem;
-                display: flex;
-                gap: 2rem;
-                font-size: 0.9rem;
-                opacity: 0.6;
-                transition: opacity 0.3s;
-            }
-
-            .nav-links a {
-                color: #ffffff;
+            .cta-button {
+                background: linear-gradient(135deg, var(--accent-blue) 0%, #0099cc 100%);
+                color: var(--text-primary);
+                padding: 15px 40px;
+                border: none;
+                border-radius: 50px;
+                font-weight: 600;
+                font-size: 1.1rem;
                 text-decoration: none;
+                display: inline-block;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+            }
+
+            .cta-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 25px rgba(0, 212, 255, 0.4);
+                color: var(--text-primary);
+            }
+
+            /* Section Styling */
+            .section {
+                padding: 100px 0;
                 position: relative;
             }
 
-            .nav-links a::after {
+            .section-title {
+                text-align: center;
+                margin-bottom: 60px;
+            }
+
+            .section-title h2 {
+                font-size: 3rem;
+                font-weight: 700;
+                margin-bottom: 20px;
+                color: var(--text-primary);
+            }
+
+            .section-title p {
+                font-size: 1.2rem;
+                color: var(--text-secondary);
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            /* What We Do Cards */
+            .service-card {
+                background: var(--secondary-bg);
+                border-radius: 20px;
+                padding: 40px;
+                height: 100%;
+                border: 1px solid rgba(0, 212, 255, 0.1);
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .service-card::before {
                 content: "";
                 position: absolute;
-                bottom: -2px;
+                top: 0;
                 left: 0;
-                width: 0%;
-                height: 1px;
-                background: #ffffff;
-                transition: width 0.3s ease;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(135deg, var(--accent-blue) 0%, #0099cc 100%);
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
             }
 
-            .nav-links a:hover::after {
-                width: 100%;
+            .service-card:hover::before {
+                transform: translateX(0);
             }
 
-            .nav-links a:hover {
-                opacity: 1;
+            .service-card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
             }
 
-            @keyframes pulse {
-                0%,
-                100% {
-                    opacity: 0.9;
-                    transform: scale(1);
-                }
-                50% {
-                    opacity: 1;
-                    transform: scale(1.03);
-                }
+            .service-icon {
+                font-size: 3rem;
+                color: var(--accent-blue);
+                margin-bottom: 20px;
             }
 
-            footer {
+            .service-card h3 {
+                font-size: 1.8rem;
+                font-weight: 600;
+                margin-bottom: 20px;
+                color: var(--text-primary);
+            }
+
+            .service-card ul {
+                list-style: none;
+                padding: 0;
+            }
+
+            .service-card li {
+                margin-bottom: 12px;
+                color: var(--text-secondary);
+                position: relative;
+                padding-left: 20px;
+            }
+
+            .service-card li::before {
+                content: "•";
+                color: var(--accent-blue);
                 position: absolute;
-                bottom: 0;
-                width: 100%;
-                text-align: center;
-                padding: 10px 0;
-                opacity: 0.3;
-                color: #ffffff;
+                left: 0;
+                font-size: 1.2rem;
             }
 
-            /* Custom modal styles */
-            .modal {
-                display: none;
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: rgba(255, 255, 255, 0.8);
+            .learn-more {
+                display: inline-block;
+                margin-top: 20px;
+                color: var(--accent-blue);
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.3s ease;
+            }
+
+            .learn-more:hover {
+                color: var(--text-primary);
+            }
+
+            /* Stats Section */
+            .stats-section {
+                background: var(--secondary-bg);
+                border-top: 1px solid rgba(0, 212, 255, 0.1);
+                border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            }
+
+            .stat-item {
+                text-align: center;
                 padding: 20px;
+            }
+
+            .stat-number {
+                font-size: 3.5rem;
+                font-weight: 700;
+                color: var(--accent-blue);
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .stat-label {
+                font-size: 1.1rem;
+                color: var(--text-secondary);
+                font-weight: 500;
+            }
+
+            /* About Section */
+            .about-content {
+                max-width: 800px;
+                margin: 0 auto;
+                text-align: center;
+            }
+
+            .about-content p {
+                font-size: 1.3rem;
+                color: var(--text-secondary);
+                line-height: 1.8;
+                margin-bottom: 30px;
+            }
+
+            /* Contact Section */
+            .contact-section {
+                background: var(--secondary-bg);
+                border-top: 1px solid rgba(0, 212, 255, 0.1);
+            }
+
+            .contact-form {
+                max-width: 600px;
+                margin: 0 auto;
+            }
+
+            .form-group {
+                margin-bottom: 25px;
+            }
+
+            .form-control {
+                background: var(--primary-bg);
+                border: 1px solid rgba(0, 212, 255, 0.2);
+                color: var(--text-primary);
+                padding: 15px 20px;
                 border-radius: 10px;
-                color: #000000;
-                width: 80%;
-                max-width: 500px;
-                z-index: 1001;
+                font-size: 1rem;
+                transition: border-color 0.3s ease;
+            }
+
+            .form-control:focus {
+                background: var(--primary-bg);
+                border-color: var(--accent-blue);
+                color: var(--text-primary);
+                box-shadow: 0 0 0 0.2rem rgba(0, 212, 255, 0.25);
+            }
+
+            .form-control::placeholder {
+                color: var(--text-muted);
+            }
+
+            textarea.form-control {
+                min-height: 120px;
+                resize: vertical;
+            }
+
+            /* Footer */
+            .footer {
+                background: var(--primary-bg);
+                padding: 40px 0;
+                border-top: 1px solid rgba(0, 212, 255, 0.1);
                 text-align: center;
             }
 
-            #modalTitle {
-                text-align: center;
-                color: #444444;
-            }
-
-            .modal-header {
-                padding: 15px;
-            }
-
-            .modal-footer {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 15px;
-            }
-
-            .modal-header h5,
-            .modal-footer button {
+            .footer p {
+                color: var(--text-muted);
                 margin: 0;
             }
 
-            .modal-footer {
-                margin-top: 20px;
+            /* Animations */
+            .fade-in {
+                opacity: 0;
+                transform: translateY(30px);
+                transition:
+                    opacity 0.6s ease,
+                    transform 0.6s ease;
             }
 
-            .overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.7);
-                z-index: 1000;
-                display: none;
+            .fade-in.visible {
+                opacity: 1;
+                transform: translateY(0);
             }
 
-            #modalBody {
-                line-height: 1.4rem;
-                letter-spacing: 0.14rem;
+            /* Responsive Design */
+            @media (max-width: 768px) {
+                .hero h1 {
+                    font-size: 2.5rem;
+                }
+
+                .hero p {
+                    font-size: 1.1rem;
+                }
+
+                .section-title h2 {
+                    font-size: 2rem;
+                }
+
+                .service-card {
+                    padding: 30px;
+                    margin-bottom: 30px;
+                }
+
+                .stat-number {
+                    font-size: 2.5rem;
+                }
+
+                .about-content p {
+                    font-size: 1.1rem;
+                }
+            }
+
+            @media (max-width: 576px) {
+                .hero h1 {
+                    font-size: 2rem;
+                }
+
+                .section {
+                    padding: 60px 0;
+                }
+
+                .service-card {
+                    padding: 25px;
+                }
             }
         </style>
     </head>
     <body>
-        <div id="background"></div>
-        <div class="container">
-            <div style="max-width: 600px">
-                <img id="logo" class="logo-img" src="/imgs/nm_2tone_1line_light.png" alt="" />
+        <!-- Navigation -->
+        <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#hero">
+                    <img src="/imgs/ws_logo.png" alt="Native Mojo Logo" />
+                </a>
+
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#hero">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#services">What We Do</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#stats">Performance</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="logo-text">Mojo Incubator</div>
-            <div class="nav-links">
-                <a id="about" href="#" onclick="openAbout()">Mission</a>
-                <a id="apparel" href="/apparel.html">Apparel</a>
-                <a id="labs" href="#" onclick="openLabs()">Labs</a>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="hero" class="hero">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-8">
+                        <div class="hero-content fade-in">
+                            <h1>Real Tech. Serious Scale.</h1>
+                            <p>
+                                Powering $200M+ in secure transactions every month across payments,
+                                access, and infrastructure.
+                            </p>
+                            <a href="#contact" class="cta-button">Partner With Us</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Modal Template -->
-        <div id="modalTemplate" class="modal">
-            <div id="modalBody" class="modal-body"></div>
-        </div>
-        <div class="overlay" onclick="closeModal()"></div>
-        <!-- About Modal Content -->
+        <!-- What We Do Section -->
+        <section id="services" class="section">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>What We Do</h2>
+                    <p>Four core pillars of technology excellence</p>
+                </div>
 
-        <template id="aboutContent">
-            <div>
-                <h2>Mission</h2>
-                <p>
-                    Bold new ventures start with the right foundation — powerful technology, cloud
-                    infrastructure, proven business systems, legal support, industry expertise,
-                    early funding, and strategic equity participation.
-                </p>
-                <p>
-                    We bring all of this together to give founders the tools, capital, and
-                    confidence they need to move fast, think big, and build what’s next.
-                </p>
-                <p>
-                    <a href="#" onclick="showEmail(event)" style="color: #009bdb; font-size: larger"
-                        >Contact Us</a
-                    >
-                </p>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="service-card fade-in">
+                            <div class="service-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Cybersecurity</h3>
+                            <ul>
+                                <li>Real-time monitoring and event-driven response</li>
+                                <li>Hyper-secure file vaults</li>
+                                <li>AI-powered threat analysis</li>
+                                <li>User defined rule engine</li>
+                            </ul>
+                            <a href="/cybersecurity" class="learn-more">Learn More →</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="service-card fade-in">
+                            <div class="service-icon">
+                                <i class="fas fa-credit-card"></i>
+                            </div>
+                            <h3>Payments Infrastructure</h3>
+                            <ul>
+                                <li>Secure AWS-native stack</li>
+                                <li>1.8M+ transactions/month</li>
+                                <li>$200M in monthly processing volume</li>
+                                <li>Intelligent fraud protection across customer/merchant/ISO</li>
+                            </ul>
+                            <a href="/payments" class="learn-more">Learn More →</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="service-card fade-in">
+                            <div class="service-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <h3>Kiosk Cloud Management</h3>
+                            <ul>
+                                <li>Full lifecycle support for connected kiosks</li>
+                                <li>Remote updates, reporting, and controls</li>
+                                <li>Real-time monitoring and analytics</li>
+                                <li>Easy integration with third-party systems</li>
+                            </ul>
+                            <a href="/kiosk" class="learn-more">Learn More →</a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 mb-4">
+                        <div class="service-card fade-in">
+                            <div class="service-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <h3>Access Control Systems</h3>
+                            <ul>
+                                <li>Online and Offline Access</li>
+                                <li>Onboarding workflows + secure identity</li>
+                                <li>Granular permissioning and audit trails</li>
+                                <li>Advanced encryption framewors</li>
+                            </ul>
+                            <a href="/access" class="learn-more">Learn More →</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </template>
+        </section>
 
-        <!-- Apparel Modal Content -->
-        <template id="apparelContent">
-            <h2>Summoning stylish threads…</h2>
-        </template>
+        <!-- Performance Stats Section -->
+        <section id="stats" class="section stats-section">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Performance at Scale</h2>
+                    <p>Numbers that matter in enterprise infrastructure</p>
+                </div>
 
-        <!-- Labs Modal Content -->
-        <template id="labsContent">
-            <h2>ACCESS DENIED</h2>
-            <h4>If you want to see the MOJO, get in touch!</h4>
-        </template>
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stat-item fade-in">
+                            <span class="stat-number" data-count="3">0</span>
+                            <div class="stat-label">Million+ web requests/month</div>
+                        </div>
+                    </div>
 
-        <footer>&copy; 2025 Native Mojo LLC</footer>
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stat-item fade-in">
+                            <span class="stat-number" data-count="200">0</span>
+                            <div class="stat-label">Million+ processed sales/month</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stat-item fade-in">
+                            <span class="stat-number" data-count="1.8">0</span>
+                            <div class="stat-label">Million payment transactions/month</div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mb-4">
+                        <div class="stat-item fade-in">
+                            <span class="stat-number">∞</span>
+                            <div class="stat-label">Immutable audit logs</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>About Native Mojo</h2>
+                </div>
+
+                <div class="about-content fade-in">
+                    <p>
+                        Native Mojo operates as a technology incubator and systems operator,
+                        powering real-world infrastructure at enterprise scale. We specialize in
+                        building and maintaining critical systems that businesses depend on every
+                        day.
+                    </p>
+                    <p>
+                        Through strategic partnerships and direct deployments, we support
+                        mission-critical operations with confidence, reliability, and unwavering
+                        technical excellence. Our approach combines deep engineering expertise with
+                        operational know-how to deliver systems that scale.
+                    </p>
+                    <a href="/about" class="learn-more">Learn More About Our Mission →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section contact-section">
+            <div class="container">
+                <div class="section-title fade-in">
+                    <h2>Partner With Us</h2>
+                    <p>Ready to build something serious together?</p>
+                </div>
+
+                <div class="contact-form fade-in">
+                    <form action="mailto:hello@nativemojo.com" method="post" enctype="text/plain">
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="name"
+                                placeholder="Your Name"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="email"
+                                class="form-control"
+                                name="email"
+                                placeholder="Your Email"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="text"
+                                class="form-control"
+                                name="company"
+                                placeholder="Company"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <textarea
+                                class="form-control"
+                                name="message"
+                                placeholder="Tell us about your project..."
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="cta-button">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 Native Mojo. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!-- Bootstrap 5 JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
         <script>
-            const logos = [
-                "nm_2tone_1line_light.png",
-                "nm_2tone_light.png",
-                "nm_2tone_light_native_mojo.png",
-                "nm_2tone_v2.png",
-                "nm_2tone_text_v2.png",
-                "mojo_bone.svg",
-                "funk_logo.png",
-                "funk_light.png",
-                "funk_light_hw.png",
-                "funk_light_hw_1line.png",
-                "text_tree_light.png",
-                "text_bulb_light.png",
-                "text.png",
-                "text_bulb_white.png",
-                "text_bulb_white2.png",
-                "text_plant_white.png",
-                "text_plant_white2.png",
-                "seed_green.png",
-                "seed_code_green.png",
-                "lightbulb_light.png",
-                "lightbulb_tree_light.png",
-                "bulb_plant.png",
-                "bulb_plant_light_solid.png",
-                "bulb_plant_light.png",
-
-                "nm_script.png",
-            ];
-            let currentLogoIndex = 0;
-
-            const logoElement = document.getElementById("logo");
-            logoElement.addEventListener("click", () => {
-                currentLogoIndex = (currentLogoIndex + 1) % logos.length;
-                logoElement.src = "/imgs/" + logos[currentLogoIndex];
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                anchor.addEventListener("click", function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute("href"));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                        });
+                    }
+                });
             });
 
-            function openAbout() {
-                // const randomChoice = Math.floor(Math.random() * 5) + 1;
-                // openModal("about", `aboutContent${randomChoice}`);
-                openModal("about", `aboutContent`);
-            }
-
-            function openLabs() {
-                // Encoded lab URL
-                const encodedUrl = "aHR0cHM6Ly9naXRodWIuY29tL05hdGl2ZU1vam8=";
-                const decodedUrl = atob(encodedUrl);
-                window.open(decodedUrl, "_blank");
-                // openModal("labs", `labsContent`);
-            }
-
-            function openModal(modalId, templateId) {
-                if (!templateId) {
-                    templateId = `${modalId}Content`;
-                }
-                const template = document.getElementById(templateId);
-                if (template) {
-                    const content = template.content.cloneNode(true);
-                    // document.getElementById("modalTitle").innerText =
-                    //     modalId.charAt(0).toUpperCase() + modalId.slice(1);
-                    document.getElementById("modalBody").innerHTML = "";
-                    document.getElementById("modalBody").appendChild(content);
-                    document.querySelector(".modal").style.display = "block";
-                    document.querySelector(".overlay").style.display = "block";
+            // Navbar scroll effect
+            window.addEventListener("scroll", function () {
+                const navbar = document.querySelector(".navbar");
+                if (window.scrollY > 50) {
+                    navbar.classList.add("scrolled");
                 } else {
-                    console.error(`No template found with id ${templateId}`);
+                    navbar.classList.remove("scrolled");
                 }
-            }
-
-            function closeModal() {
-                document.querySelector(".modal").style.display = "none";
-                document.querySelector(".overlay").style.display = "none";
-                document.getElementById("background").className = "";
-            }
-
-            function showEmail(event) {
-                event.preventDefault();
-                const email = "ojomtog".split("").reverse().join("") + "@nativemojo.com";
-                window.location.href = `mailto:${email}`;
-            }
-
-            document.querySelectorAll(".nav-links a").forEach((link) => {
-                link.addEventListener("mouseover", () => {
-                    document.getElementById("background").classList.add(`background-${link.id}`);
-                });
-
-                link.addEventListener("mouseout", () => {
-                    document.getElementById("background").classList.remove(`background-${link.id}`);
-                });
             });
+
+            // Fade in animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px",
+            };
+
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll(".fade-in").forEach((el) => {
+                observer.observe(el);
+            });
+
+            // Counter animation for stats
+            function animateCounter(element, target, duration = 2000) {
+                const start = 0;
+                const increment = target / (duration / 16);
+                let current = start;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+
+                    if (target === 1.8) {
+                        element.textContent = current.toFixed(1);
+                    } else {
+                        element.textContent = Math.floor(current);
+                    }
+                }, 16);
+            }
+
+            // Trigger counter animation when stats section is visible
+            const statsObserver = new IntersectionObserver(
+                function (entries) {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const counters = entry.target.querySelectorAll(
+                                ".stat-number[data-count]",
+                            );
+                            counters.forEach((counter) => {
+                                const target = parseFloat(counter.getAttribute("data-count"));
+                                animateCounter(counter, target);
+                            });
+                            statsObserver.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.5 },
+            );
+
+            const statsSection = document.getElementById("stats");
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+
+            // Auto-show first fade-in element (hero)
+            setTimeout(() => {
+                document.querySelector(".hero .fade-in").classList.add("visible");
+            }, 100);
         </script>
     </body>
 </html>

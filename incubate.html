@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NATIVE MOJO</title>
+        <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
+        <link rel="shortcut icon" href="/favicons/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicons/site.webmanifest" />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            html {
+                position: relative;
+                height: 100%;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                background: #0b0c10;
+                font-family: "Roboto", sans-serif;
+                overflow: hidden;
+                position: relative;
+            }
+
+            #background {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                z-index: 0;
+                opacity: 0.1;
+                background: url("/bgs/bg_gd.webp") no-repeat center center / cover;
+                transition: opacity 3s ease;
+            }
+
+            .background-about {
+                background: url("/bgs/nm_logo_bone.svg") no-repeat center center / cover;
+                opacity: 0.3 !important;
+            }
+
+            .background-apparel {
+                background: url("/bgs/apparel.png") no-repeat center center / cover !important;
+            }
+
+            .background-labs {
+                background: url("/bgs/bg3.png") no-repeat center center / cover;
+                opacity: 0.3 !important;
+            }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                position: relative;
+                z-index: 1;
+                text-align: center;
+                color: #ffffff;
+                user-select: none;
+                -webkit-user-select: none;
+                padding: 20px;
+            }
+
+            .logo-img {
+                max-width: 100%;
+                max-height: 240px;
+                cursor: pointer;
+            }
+
+            .logo-text {
+                font-size: 2rem;
+                letter-spacing: 0.3rem;
+                margin-top: 30px;
+                animation: pulse 4s ease-in-out infinite;
+                color: #ffffff;
+                user-select: none;
+            }
+
+            .tagline {
+                margin-top: 1rem;
+                font-size: 1.2rem;
+                opacity: 0.7;
+                color: #ffffff;
+            }
+
+            .nav-links {
+                margin-top: 3rem;
+                display: flex;
+                gap: 2rem;
+                font-size: 0.9rem;
+                opacity: 0.6;
+                transition: opacity 0.3s;
+            }
+
+            .nav-links a {
+                color: #ffffff;
+                text-decoration: none;
+                position: relative;
+            }
+
+            .nav-links a::after {
+                content: "";
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 0%;
+                height: 1px;
+                background: #ffffff;
+                transition: width 0.3s ease;
+            }
+
+            .nav-links a:hover::after {
+                width: 100%;
+            }
+
+            .nav-links a:hover {
+                opacity: 1;
+            }
+
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 0.9;
+                    transform: scale(1);
+                }
+                50% {
+                    opacity: 1;
+                    transform: scale(1.03);
+                }
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                text-align: center;
+                padding: 10px 0;
+                opacity: 0.3;
+                color: #ffffff;
+            }
+
+            /* Custom modal styles */
+            .modal {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: rgba(255, 255, 255, 0.8);
+                padding: 20px;
+                border-radius: 10px;
+                color: #000000;
+                width: 80%;
+                max-width: 500px;
+                z-index: 1001;
+                text-align: center;
+            }
+
+            #modalTitle {
+                text-align: center;
+                color: #444444;
+            }
+
+            .modal-header {
+                padding: 15px;
+            }
+
+            .modal-footer {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px;
+            }
+
+            .modal-header h5,
+            .modal-footer button {
+                margin: 0;
+            }
+
+            .modal-footer {
+                margin-top: 20px;
+            }
+
+            .overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 1000;
+                display: none;
+            }
+
+            #modalBody {
+                line-height: 1.4rem;
+                letter-spacing: 0.14rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="background"></div>
+        <div class="container">
+            <div style="max-width: 600px">
+                <img id="logo" class="logo-img" src="/imgs/nm_2tone_1line_light.png" alt="" />
+            </div>
+            <div class="logo-text">Mojo Incubator</div>
+            <div class="nav-links">
+                <a id="about" href="#" onclick="openAbout()">Mission</a>
+                <a id="apparel" href="/apparel.html">Apparel</a>
+                <a id="labs" href="#" onclick="openLabs()">Labs</a>
+            </div>
+        </div>
+
+        <!-- Modal Template -->
+        <div id="modalTemplate" class="modal">
+            <div id="modalBody" class="modal-body"></div>
+        </div>
+        <div class="overlay" onclick="closeModal()"></div>
+        <!-- About Modal Content -->
+
+        <template id="aboutContent">
+            <div>
+                <h2>Mission</h2>
+                <p>
+                    Bold new ventures start with the right foundation — powerful technology, cloud
+                    infrastructure, proven business systems, legal support, industry expertise,
+                    early funding, and strategic equity participation.
+                </p>
+                <p>
+                    We bring all of this together to give founders the tools, capital, and
+                    confidence they need to move fast, think big, and build what’s next.
+                </p>
+                <p>
+                    <a href="#" onclick="showEmail(event)" style="color: #009bdb; font-size: larger"
+                        >Contact Us</a
+                    >
+                </p>
+            </div>
+        </template>
+
+        <!-- Apparel Modal Content -->
+        <template id="apparelContent">
+            <h2>Summoning stylish threads…</h2>
+        </template>
+
+        <!-- Labs Modal Content -->
+        <template id="labsContent">
+            <h2>ACCESS DENIED</h2>
+            <h4>If you want to see the MOJO, get in touch!</h4>
+        </template>
+
+        <footer>&copy; 2025 Native Mojo LLC</footer>
+
+        <script>
+            const logos = [
+                "nm_2tone_1line_light.png",
+                "nm_2tone_light.png",
+                "nm_2tone_light_native_mojo.png",
+                "nm_2tone_v2.png",
+                "nm_2tone_text_v2.png",
+                "mojo_bone.svg",
+                "funk_logo.png",
+                "funk_light.png",
+                "funk_light_hw.png",
+                "funk_light_hw_1line.png",
+                "text_tree_light.png",
+                "text_bulb_light.png",
+                "text.png",
+                "text_bulb_white.png",
+                "text_bulb_white2.png",
+                "text_plant_white.png",
+                "text_plant_white2.png",
+                "seed_green.png",
+                "seed_code_green.png",
+                "lightbulb_light.png",
+                "lightbulb_tree_light.png",
+                "bulb_plant.png",
+                "bulb_plant_light_solid.png",
+                "bulb_plant_light.png",
+
+                "nm_script.png",
+            ];
+            let currentLogoIndex = 0;
+
+            const logoElement = document.getElementById("logo");
+            logoElement.addEventListener("click", () => {
+                currentLogoIndex = (currentLogoIndex + 1) % logos.length;
+                logoElement.src = "/imgs/" + logos[currentLogoIndex];
+            });
+
+            function openAbout() {
+                // const randomChoice = Math.floor(Math.random() * 5) + 1;
+                // openModal("about", `aboutContent${randomChoice}`);
+                openModal("about", `aboutContent`);
+            }
+
+            function openLabs() {
+                // Encoded lab URL
+                const encodedUrl = "aHR0cHM6Ly9naXRodWIuY29tL05hdGl2ZU1vam8=";
+                const decodedUrl = atob(encodedUrl);
+                window.open(decodedUrl, "_blank");
+                // openModal("labs", `labsContent`);
+            }
+
+            function openModal(modalId, templateId) {
+                if (!templateId) {
+                    templateId = `${modalId}Content`;
+                }
+                const template = document.getElementById(templateId);
+                if (template) {
+                    const content = template.content.cloneNode(true);
+                    // document.getElementById("modalTitle").innerText =
+                    //     modalId.charAt(0).toUpperCase() + modalId.slice(1);
+                    document.getElementById("modalBody").innerHTML = "";
+                    document.getElementById("modalBody").appendChild(content);
+                    document.querySelector(".modal").style.display = "block";
+                    document.querySelector(".overlay").style.display = "block";
+                } else {
+                    console.error(`No template found with id ${templateId}`);
+                }
+            }
+
+            function closeModal() {
+                document.querySelector(".modal").style.display = "none";
+                document.querySelector(".overlay").style.display = "none";
+                document.getElementById("background").className = "";
+            }
+
+            function showEmail(event) {
+                event.preventDefault();
+                const email = "ojomtog".split("").reverse().join("") + "@nativemojo.com";
+                window.location.href = `mailto:${email}`;
+            }
+
+            document.querySelectorAll(".nav-links a").forEach((link) => {
+                link.addEventListener("mouseover", () => {
+                    document.getElementById("background").classList.add(`background-${link.id}`);
+                });
+
+                link.addEventListener("mouseout", () => {
+                    document.getElementById("background").classList.remove(`background-${link.id}`);
+                });
+            });
+        </script>
+    </body>
+</html>
